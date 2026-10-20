@@ -1,0 +1,13 @@
+node_modules
+**/node_modules
+dist
+**/dist
+.git
+.github
+artifacts
+cache
+typechain-types
+coverage
+**/*.log
+.env
+.env.local

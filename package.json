@@ -1,0 +1,24 @@
+{
+  "name": "aether-desk",
+  "private": true,
+  "version": "1.0.0",
+  "description": "Ethereum operations console. React frontend with ethers.js and web3.js behind one chain interface.",
+  "engines": {
+    "node": ">=20"
+  },
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "contracts"
+  ],
+  "scripts": {
+    "dev": "npm run dev -w @aether/web",
+    "build": "npm run build -w @aether/web",
+    "test": "npm run test -w @aether/web && npm run test -w @aether/contracts",
+    "typecheck": "npm run typecheck -w @aether/web",
+    "compile": "npm run compile -w @aether/contracts",
+    "chain": "npm run node -w @aether/contracts",
+    "deploy": "npm run deploy -w @aether/contracts",
+    "deploy:sepolia": "npm run deploy:sepolia -w @aether/contracts"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "family": "aether-desk",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": ["FARGATE"],
+  "cpu": "256",
+  "memory": "512",
+  "executionRoleArn": "arn:aws:iam::ACCOUNT_ID:role/ecsTaskExecutionRole",
+  "containerDefinitions": [
+    {
+      "name": "web",
+      "image": "ACCOUNT_ID.dkr.ecr.REGION.amazonaws.com/aether-desk:latest",
+      "essential": true,
+      "portMappings": [
+        { "containerPort": 80, "protocol": "tcp" }
+      ],
+      "environment": [
+        { "name": "CHAIN_ID", "value": "11155111" },
+        { "name": "RPC_URL", "value": "https://ethereum-sepolia-rpc.publicnode.com" },
+        { "name": "CLIENT", "value": "ethers" }
+      ],
+      "healthCheck": {
+        "command": ["CMD-SHELL", "wget -qO- http://127.0.0.1/healthz || exit 1"],
+        "interval": 30,
+        "timeout": 5,
+        "retries": 3,
+        "startPeriod": 10
+      },
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/aether-desk",
+          "awslogs-region": "REGION",
+          "awslogs-stream-prefix": "web"
+        }
+      }
+    }
+  ]
+}
