@@ -14,7 +14,7 @@
   "scripts": {
     "dev": "npm run dev -w @aether/web",
     "build": "npm run build -w @aether/web",
-    "test": "npm run test -w @aether/web && npm run test -w @aether/contracts",
+    "test": "npm run compile -w @aether/contracts && npm run test -w @aether/web && npm run test -w @aether/contracts",
     "typecheck": "npm run typecheck -w @aether/web",
     "compile": "npm run compile -w @aether/contracts",
     "chain": "npm run node -w @aether/contracts",

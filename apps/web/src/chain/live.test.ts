@@ -10,6 +10,7 @@ import type { ChainClient } from "../types";
 import { createChainClient } from "./factory";
 
 interface HardhatRuntime {
+  run: (task: string) => Promise<void>;
   ethers: {
     getSigners: () => Promise<Array<{ address: string }>>;
     deployContract: (name: string, args?: unknown[]) => Promise<{
@@ -45,6 +46,8 @@ describe("both transports on a Hardhat network", () => {
 
   beforeAll(async () => {
     const hre = loadHardhat();
+    // CI checks out source only. Contract artifacts are not committed, and this suite runs before the Hardhat tests.
+    await hre.run("compile");
     const [first, second] = await hre.ethers.getSigners();
     owner = first.address;
     stranger = second.address;
